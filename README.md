@@ -14,7 +14,7 @@ A Add-on for **[DiscordIntegration](https://github.com/galaxy119/DiscordIntegrat
 
 # Installation
 
-**[EXILED](https://github.com/galaxy119/EXILED) and **[DiscordIntegration](https://github.com/galaxy119/DiscordIntegration) must be installed for this to work.**
+**[EXILED](https://github.com/galaxy119/EXILED) and [DiscordIntegration](https://github.com/galaxy119/DiscordIntegration) must be installed for this to work.**
 
 Place the "DiscordAutoBanMessage.dll" file in your Plugins folder.
 Windows: %appdata%/Plugins
