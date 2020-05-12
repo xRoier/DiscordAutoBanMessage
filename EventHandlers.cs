@@ -14,6 +14,7 @@ namespace DiscordAutoBanMsg
 
 		public void OnPlayerBan(PlayerBannedEvent ev)
 		{
+			if (ev.Details.Id.Contains(".")) return;
 			if (plugin.replacelowbars)
 			{
 				reason = ev.Details.Reason.Replace("_"," ");
