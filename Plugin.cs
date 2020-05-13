@@ -1,4 +1,4 @@
-﻿using EXILED;
+using EXILED;
 using MEC;
 
 namespace DiscordAutoBanMsg
@@ -22,6 +22,8 @@ namespace DiscordAutoBanMsg
         public string msgreason;
         public string msgexpires;
         public string langname;
+        public string msgconfigreload;
+        public string msgnoperm;
         public override void OnEnable()
         {
             isEnabled = Config.GetBool("dabm_enable", true);
@@ -38,6 +40,7 @@ namespace DiscordAutoBanMsg
                 Log.Info($"{msgconfigenabled}");
                 EventHandlers = new EventHandlers(this);
                 Events.PlayerBannedEvent += EventHandlers.OnPlayerBan;
+                Events.RemoteAdminCommandEvent += EventHandlers.OnRACommand;
             });
         }
         
@@ -77,6 +80,8 @@ namespace DiscordAutoBanMsg
                         msgbanneduser = "User";
                         msgreason = "Reason";
                         msgexpires = "Expires";
+                        msgconfigreload = "Configuration has been reloaded.";
+                        msgnoperm = "You don't have permission.";
                         break;
                     }
                 case "es":
@@ -90,6 +95,8 @@ namespace DiscordAutoBanMsg
                         msgbanneduser = "Usuario";
                         msgreason = "Razón";
                         msgexpires = "Expira";
+                        msgconfigreload = "La configuración ha sido recargada.";
+                        msgnoperm = "No tienes permiso.";
                         break;
                     }
                 case "fr":
@@ -103,6 +110,8 @@ namespace DiscordAutoBanMsg
                         msgbanneduser = "Utilisateur";
                         msgreason = "Raison";
                         msgexpires = "Expire";
+                        msgconfigreload = "La configuration a été rechargée";
+                        msgnoperm = "Tu n'as pas la permission";
                         break;
                     }
                 case "ja":
@@ -116,6 +125,8 @@ namespace DiscordAutoBanMsg
                         msgbanneduser = "ユーザー";
                         msgreason = "理由";
                         msgexpires = "期限";
+                        msgconfigreload = "Configuration has been reloaded.";
+                        msgnoperm = "You don't have permission.";
                         break;
                     }
                 case "ch":
@@ -129,6 +140,8 @@ namespace DiscordAutoBanMsg
                         msgbanneduser = "用户名";
                         msgreason = "原因";
                         msgexpires = "过期";
+                        msgconfigreload = "Configuration has been reloaded.";
+                        msgnoperm = "You don't have permission.";
                         break;
                     }
                 case "ru":
@@ -142,9 +155,26 @@ namespace DiscordAutoBanMsg
                         msgbanneduser = "пользователь";
                         msgreason = "причина";
                         msgexpires = "истекает";
+                        msgconfigreload = "Configuration has been reloaded.";
+                        msgnoperm = "You don't have permission.";
                         break;
                     }
-                default:
+                case "pl":
+                    {
+                        langname = "Polish";
+                        msgconfigdis = "Plugin jest wyłączony w configu. Język niezdefiniowany.";
+                        msgconfigenabled = "Plugin załadowany. Język: " + langname;
+                        msgnodiscordint = "Plugin DiscordIntegration nieznaleziony.";
+                        msgnochanneldef = "Kanał do banów niezdefiniowany.";
+                        msgbanissuer = "Zbanowany przez";
+                        msgbanneduser = "Użytkownik";
+                        msgreason = "Powód";
+                        msgexpires = "Wygasa";
+                        msgconfigreload = "Konfiguracja została ponownie załadowana.";
+                        msgnoperm = "Nie masz pozwolenia";
+                        break;
+                    }
+                        default:
                     {
                         langname = "English (Default)";
                         msgconfigdis = "Plugin is disabled by config. Language is not defined.";
@@ -155,6 +185,8 @@ namespace DiscordAutoBanMsg
                         msgbanneduser = "User";
                         msgreason = "Reason";
                         msgexpires = "Expires";
+                        msgconfigreload = "Configuration has been reloaded.";
+                        msgnoperm = "You don't have permission.";
                         break;
                     }
             }
