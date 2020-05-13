@@ -1,8 +1,9 @@
-﻿using System;
+using System;
 using EXILED;
 using MEC;
-using DiscordIntegration_Plugin;
-
+using System.Collections.Generic;
+using System.Linq;
+using EXILED.Extensions;
 
 namespace DiscordAutoBanMsg
 {
@@ -34,7 +35,7 @@ namespace DiscordAutoBanMsg
 				}
 					if (plugin.decoremsg)
 					{
-						ProcessSTT.SendData($"\n> ~~-------------------------------------------~~" +
+					DiscordIntegration_Plugin.ProcessSTT.SendData($"\n> ~~-------------------------------------------~~" +
 $"\n> {plugin.msgbanneduser}: {ev.Details.OriginalName} " +
 $"\n> SteamID64: {ev.Details.Id} " +
 $"\n> {plugin.msgbanissuer}: {ev.Details.Issuer} " +
@@ -43,7 +44,7 @@ $"\n> {plugin.msgexpires}: {FormattedDate} " +
 $"\n> ~~-------------------------------------------~~", plugin.banchannel);
 					} else
 					{
-						ProcessSTT.SendData($"\n{plugin.msgbanneduser}: {ev.Details.OriginalName} " +
+					DiscordIntegration_Plugin.ProcessSTT.SendData($"\n{plugin.msgbanneduser}: {ev.Details.OriginalName} " +
 $"\nSteamID64: {ev.Details.Id} " +
 $"\n{plugin.msgbanissuer}: {ev.Details.Issuer} " +
 $"\n{plugin.msgreason}: {reason} " +
@@ -52,5 +53,29 @@ $"\n{plugin.msgexpires}: {FormattedDate} ", plugin.banchannel);
 			});
 			return;
 		}
+
+		public void OnRACommand(ref RACommandEvent ev)
+		{
+			List<string> args = ev.Command.Split(' ').ToList();
+			ReferenceHub sender = ev.Sender.SenderId == "SERVER CONSOLE" || ev.Sender.SenderId == "GAME CONSOLE" ? PlayerManager.localPlayer.GetPlayer() : Player.GetPlayer(ev.Sender.SenderId);
+			string cmd = args[0].ToLower();
+			if (cmd == "dabm")
+			{
+				if (!sender.CheckPermission("dabm.reload") || !sender.CheckPermission(".*"))
+				{
+					ev.Sender.RAMessage($"{plugin.msgnoperm}");
+					return;
+				}
+				plugin.LoadConfig();
+				Timing.CallDelayed(0.5f, () => 
+				{
+					plugin.LoadTranslations();
+				});
+				ev.Sender.RAMessage($"{plugin.msgconfigreload}");
+				Log.Info($"{plugin.msgconfigreload}");
+				return;
+			}
+		}
+
 	}
 }
