@@ -6,11 +6,15 @@ A Add-on for **[DiscordIntegration](https://github.com/galaxy119/DiscordIntegrat
 | Config | Type | Description |
 | ------ | ------ | ------ |
 | dabm_enable | boolean | **true by default.** Enables or disables the plugin. |
-| dabm_language | String | **en by default.** en/es/fr/ja/ch/ru change language of the message. |
+| dabm_language | String | **en by default.** en/es/fr/ja/ch/ru/pl change language of the message. |
 | dabm_banchannel | ulong | **required** specifies the Channel ID of the Discord ban channel (Example: 656790333320855562) |
 | dabm_decoremsg | boolean | **true by default.** Decorate the message of the ban a little bit with a couple of lines at the beginning and end of the message. |
 | dabm_reason_replacelowbars | boolean | **false by default.** Useful for entering spaces in the ban reason using oban, replacing the low bars with spaces. |
 
+# Command
+| Command | Permission | Description |
+| ------ | ------ | ------ |
+| dabm | dabm.reload | Reload config in round. |
 
 # Installation
 
