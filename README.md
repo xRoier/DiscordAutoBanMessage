@@ -1,6 +1,6 @@
 # DiscordAutoBanMessage
 
-A Add-on for **[DiscordIntegration](https://github.com/galaxy119/DiscordIntegration) that automatically send a message to a specified Discord channel with the information of a ban.
+A Add-on for [DiscordIntegration](https://github.com/galaxy119/DiscordIntegration) that automatically send a message to a specified Discord channel with the information of a ban.
 
 # Config
 | Config | Type | Description |
