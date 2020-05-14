@@ -48,6 +48,7 @@ namespace DiscordAutoBanMsg
         public override void OnDisable()
         {
             Events.PlayerBannedEvent -= EventHandlers.OnPlayerBan;
+            Events.RemoteAdminCommandEvent -= EventHandlers.OnRACommand;
             EventHandlers = null;
         }
 
