@@ -162,7 +162,7 @@ namespace DiscordAutoBanMsg
                 case "pl":
                     {
                         langname = "Polish";
-                        msgconfigdis = "Plugin jest wyłączony w configu. Język niezdefiniowany.";
+                        msgconfigdis = "Wtyczka jest wyłączona w ustawieniach.";
                         msgconfigenabled = "Plugin załadowany. Język: " + langname;
                         msgnodiscordint = "Plugin DiscordIntegration nieznaleziony.";
                         msgnochanneldef = "Kanał do banów niezdefiniowany.";
