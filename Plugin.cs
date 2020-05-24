@@ -1,6 +1,6 @@
+using System.Net;
 using EXILED;
 using MEC;
-
 namespace DiscordAutoBanMsg
 {
     public class Plugin : EXILED.Plugin
@@ -13,6 +13,7 @@ namespace DiscordAutoBanMsg
         public string language;
         public bool decoremsg;
         public bool replacelowbars;
+        public bool hasDiscordIntegration = false;
         public string msgconfigdis;
         public string msgconfigenabled;
         public string msgnodiscordint;
@@ -26,15 +27,21 @@ namespace DiscordAutoBanMsg
         public string msgnoperm;
         public override void OnEnable()
         {
+            CheckDiscordIntegration();
             isEnabled = Config.GetBool("dabm_enable", true);
             language = Config.GetString("dabm_language");
             LoadTranslations();
+            CheckNewVersion("https://pastebin.com/raw/f1Rimvcd", "1.0.4", "https://pastebin.com/raw/YRjySYAG", getName);
             Timing.CallDelayed(1f, () => 
             {
                 if (!isEnabled)
                 {
                     Log.Info($"{msgconfigdis}");
                     return;
+                }
+                if (!hasDiscordIntegration) 
+                {
+                    Log.Info($"{msgnodiscordint}");
                 }
                 LoadConfig();
                 Log.Info($"{msgconfigenabled}");
@@ -43,7 +50,18 @@ namespace DiscordAutoBanMsg
                 Events.RemoteAdminCommandEvent += EventHandlers.OnRACommand;
             });
         }
-        
+
+        public void CheckDiscordIntegration()
+        {
+            foreach (EXILED.Plugin plugin in PluginManager._plugins)
+            {
+                if (plugin.getName == "Discord Integration")
+                {
+                    hasDiscordIntegration = true;
+                    return;
+                }
+            }
+        }
 
         public override void OnDisable()
         {
@@ -64,6 +82,22 @@ namespace DiscordAutoBanMsg
         public override void OnReload()
         {
             LoadConfig();
+        }
+
+        public static void CheckNewVersion(string LastVersionURL, string ActualPluginVersion, string LastVersionDownloadURL, string PluginName)
+        {
+            WebClient client = new WebClient();
+            string LV = client.DownloadString(LastVersionURL);
+            string LVDownload = client.DownloadString(LastVersionDownloadURL);
+            Timing.CallDelayed(0.6f, () =>
+            {
+                if (ActualPluginVersion != LV)
+                {
+                    Log.Info($"{PluginName} has a new update! Download here: {LVDownload}");
+                    return;
+                }
+            }
+            );
         }
 
         public void LoadTranslations()
